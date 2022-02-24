@@ -4,12 +4,6 @@ import java.lang.Math;
 import java.util.Arrays;
 
 public abstract class MatrixOps {
-    public static void main(String[] args) {
-        double[][] point = new double[][] {{3}, {7}};
-        double[][] rotation = rotate(point, 1, Math.PI/2);
-        System.out.println(Arrays.deepToString(rotation));
-    }
-
     public static double[][] mult(double[][] firstMatrix, double[][] secondMatrix, int r1, int c1, int c2) {
         double[][] product = new double[r1][c2];
         for(int i = 0; i < r1; i++) {
@@ -25,13 +19,60 @@ public abstract class MatrixOps {
     public static double[][] rotate(double[][] matrix, int c2, double a) {
         double[][] product = new double[2][c2];
 
-        double[][] rotateY = new double[][] {
-            {Math.cos(a), 0, -Math.sin(a), 0},
-            {0, 1, 0},
-            {Math.sin(a), 0, Math.cos(a), 0},
+        double[][] rotateX = new double[][] {
+            {1, 0, 0},
+            {0, Math.cos(a), -Math.sin(a)},
+            {0, Math.sin(a), Math.cos(a)},
         };
 
+        double[][] rotateZ = new double[][] {
+            {Math.cos(a), -Math.sin(a), 0},
+            {Math.sin(a), Math.cos(a), 0},
+            {0, 0, 1}
+        };
+
+        product = mult(rotateX, matrix, 3, 3, c2);
+        product = mult(rotateZ, product, 3, 3, c2);
+        return product;
+    }
+
+    public static double[][] rotateX(double[][] matrix, int c2, double a) {
+        double[][] product = new double[2][c2];
+
+        double[][] rotateX = new double[][] {
+            {1, 0, 0},
+            {0, Math.cos(a), -Math.sin(a)},
+            {0, Math.sin(a), Math.cos(a)},
+        };
+
+        product = mult(rotateX, matrix, 3, 3, c2);
+        return product;
+    }
+
+    public static double[][] rotateY(double[][] matrix, int c2, double a) {
+        double[][] product = new double[2][c2];
+
+        double[][] rotateY = new double[][] {
+            {Math.cos(a), 0, -Math.sin(a)},
+            {0, 1, 0},
+            {Math.sin(a), 0, Math.cos(a)},
+        };
+
+
         product = mult(rotateY, matrix, 3, 3, c2);
+        return product;
+    }
+
+    public static double[][] rotateZ(double[][] matrix, int c2, double a) {
+        double[][] product = new double[2][c2];
+
+        double[][] rotateZ = new double[][] {
+            {Math.cos(a), -Math.sin(a), 0},
+            {Math.sin(a), Math.cos(a), 0},
+            {0, 0, 1}
+        };
+
+        product = mult(rotateZ, matrix, 3, 3, c2);
         return product;
     }
 
