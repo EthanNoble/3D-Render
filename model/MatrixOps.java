@@ -87,4 +87,13 @@ public abstract class MatrixOps {
         product = mult(rotate, matrix, 2, 2, c2);
         return product;
     }
+
+    public static double[] crossProduct(double u[], double v[]) {
+        double crossProduct[] = new double[3];
+        crossProduct[0] = u[1] * v[2] - u[2] * v[1];
+        crossProduct[1] = u[2] * v[0] - u[0] * v[2];
+        crossProduct[2] = u[0] * v[1] - u[1] * v[0];
+
+        return crossProduct;
+    }
 }
